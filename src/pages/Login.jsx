@@ -1,20 +1,48 @@
-import React from 'react'
-import { Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
+import { signInWithEmailAndPassword } from 'firebase/auth'
+import React, { useState } from 'react'
+import { Alert, Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { auth } from '../firebase'
 import pic from "../Images/lock.png"
 import pic2 from "../Images/login.jpg"
 const Login = () => {
+    const navigate = useNavigate();
+    const [values, setValues] = useState({
+        email: "",
+        pass: ""
+    });
+
+    const [errMsg, setErrMsg] = useState("");
+
+    const handleSubmission = (e) => {
+        e.preventDefault();
+        if (!values.email || !values.pass) {
+            setErrMsg("Please fill all fields!");
+            return;
+        }
+        setErrMsg("");
+        signInWithEmailAndPassword(auth, values.email, values.pass)
+            .then(async (res) => {
+                navigate("/");
+            })
+            .catch((err) => {
+                setErrMsg(err.message);
+            });
+    };
     return (
         <div>
             <Container fluid='md' className='mt-5'>
                 <Row>
                     <Col lg={3} md={6} sm={12}>
                         <Image className='mb-5 pb-3 mt-5' fluid src={pic} alt="icon" />
-                        <Form>
+                        {errMsg && <Alert variant='danger'>{errMsg}</Alert>}
+                        <Form onSubmit={handleSubmission}>
                             <Form.Group className="mb-3" controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
-                                <Form.Control type="email" placeholder="Enter email" />
+                                <Form.Control type="email" placeholder="Enter email"
+                                    onChange={(e) =>
+                                        setValues((prev) => ({ ...prev, email: e.target.value }))} />
                                 <Form.Text className="text-muted">
                                     We'll never share your email with anyone else.
                                 </Form.Text>
@@ -22,10 +50,12 @@ const Login = () => {
 
                             <Form.Group className="mb-3" controlId="formBasicPassword">
                                 <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
+                                <Form.Control type="password" placeholder="Password"
+                                    onChange={(e) =>
+                                        setValues((prev) => ({ ...prev, pass: e.target.value }))} />
                             </Form.Group>
                             <div className="d-grid gap-2">
-                                <Button variant="primary btn-block" size="md" type="submit">
+                                <Button variant="primary btn-block" size="md" type="Submit">
                                     <strong>Log In</strong>
                                 </Button>
                                 <Container className='justify-content-center'>

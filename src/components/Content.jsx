@@ -5,7 +5,7 @@ import { Button } from 'react-bootstrap'
 
 const Container = styled.div`
     width: 100%;
-    height: 80vh;
+    height: 100vh;
     display: flex;
     background-color: #e0d918;
     justify-content: center;
@@ -22,7 +22,7 @@ const BtnContainer = styled.div`
     flex: 1;
     justify-content: flex-end;
     position: absolute;
-    right: 200px;
+    right: 400px;
 `
 
 const Content = () => {
