@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useReducer } from 'react'
+import { Col, Row, Dropdown, DropdownButton } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
 
 const reducer = (state, action) => {
@@ -7,7 +8,7 @@ const reducer = (state, action) => {
         case 'FETCH_REQUEST':
             return { ...state, loading: true };
         case 'FETCH_SUCCESS':
-            return { ...state, courses: action.payload, loading: false };
+            return { ...state, course: action.payload, loading: false };
         case 'FETCH_FAIL':
             return { ...state, error: action.payload, loading: false };
         default:
@@ -23,7 +24,7 @@ const CourseDetails = () => {
     const [{ loading, error, course }, dispatch] = useReducer(reducer, {
         loading: true,
         error: '',
-        courses: []
+        course: []
     });
     useEffect(() => {
         const fetchData = async () => {
@@ -39,9 +40,23 @@ const CourseDetails = () => {
     }, [slug]);
 
     return (
-        <div>
-            <h1>{slug}</h1>
-        </div>
+        loading ? <div>Loading...</div>
+            : error ? <div>{error}</div>
+                : <div>
+                    <Row>
+                        <Col md={6} sm={12}>
+                            {
+                                course.sections.map((section) =>
+                                (<DropdownButton id="dropdown-basic-button" title={section} variant='info'>
+                                    <Dropdown.Item href="#/action-1">SubSection 1</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-2">SubSection 2</Dropdown.Item>
+                                    <Dropdown.Item href="#/action-3">SubSection 3</Dropdown.Item>
+                                </DropdownButton>))
+                            }
+                        </Col>
+                        <Col md={6} sm={12}></Col>
+                    </Row>
+                </div>
     )
 }
 
