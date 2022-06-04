@@ -37,7 +37,7 @@ const SignUp = () => {
     };
 
     return (
-        <div>
+        <div className='bg-SignUp'>
             <Container fluid='md' className='mt-5' style={{ width: 400 }}>
                 {/* <Row>
                     <Col lg={3} md={6} sm={12} className="justify-content-center"> */}
@@ -69,14 +69,14 @@ const SignUp = () => {
                             <strong>Sign Up</strong>
                         </Button>
                         <div className='mb-5 text-left'>
-                            Already have an account? Please <Link to="/login"><strong>Login</strong></Link>
+                            Already have an account? Please <Link to="/login" style={{ color: 'white', textDecoration: 'none' }}><strong>Login</strong></Link>
                         </div>
                     </div>
                 </Form>
                 {/* </Col>
                 </Row> */}
             </Container>
-        </div>
+        </div >
     )
 }
 
