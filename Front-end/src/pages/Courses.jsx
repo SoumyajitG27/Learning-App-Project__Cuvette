@@ -6,6 +6,9 @@ import { Button, Carousel, Container, Navbar } from 'react-bootstrap'
 import axios from 'axios'
 import logger from 'use-reducer-logger'
 import { LinkContainer } from 'react-router-bootstrap'
+import NavbarCart from '../components/NavbarCart'
+import Loading from '../components/Loading'
+import MessageBox from '../components/MessageBox'
 
 const reducer = (state, action) => {
     switch (action.type) {
@@ -42,25 +45,17 @@ const Courses = () => {
     }, []);
 
     return (
-        <div className='d-flex flex-column bg-Courses' style={{ minHeight: '100vh' }}>
-            <header>
-                <Navbar bg="dark" variant="dark">
-                    <Container>
-                        <LinkContainer to="/dashboard">
-                            <Navbar.Brand>E-Learn</Navbar.Brand>
-                        </LinkContainer>
-                    </Container>
-                </Navbar>
-            </header>
+        <div className='d-flex flex-column bg-Courses'>
+            <NavbarCart />
             <main style={{ flex: 1 }}>
                 <Container>
                     <h1 className='my-4 text-center' style={{ color: 'white' }}><b>Featured Courses</b></h1>
                     <Container style={{ textAlign: 'center' }}>
                         <Carousel style={{ width: '100%' }}>
                             {
-                                loading ? <div>Loading...</div>
+                                loading ? <div><Loading /></div>
                                     :
-                                    error ? <div>{error}</div>
+                                    error ? <div><MessageBox variant="danger">{error}</MessageBox> </div>
                                         :
                                         courses.map((course) => (
                                             <Carousel.Item key={course.slug}>

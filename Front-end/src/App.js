@@ -6,6 +6,7 @@ import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import SignUp from './pages/SignUp'; import Courses from './pages/Courses';
 import CourseDetails from './pages/CourseDetails'
+import Cart from './pages/Cart';
 
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/courses" element={<Courses />} />
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/cart' element={<Cart />} />
         <Route path='/courses/:slug' element={<CourseDetails />} />
       </Routes>
     </BrowserRouter>
