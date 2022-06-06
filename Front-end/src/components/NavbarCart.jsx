@@ -18,15 +18,21 @@ const NavbarCart = () => {
             </LinkContainer>
             <Nav className="me-auto">
               <Link to="/cart" className='nav-link'>
-                {/* <ShoppingCartOutlinedIcon> */}
-                Cart
-                {
-                  courseStore.storeItems.length > 0 && (
-                    <Badge pill bg="warning">
-                      {courseStore.storeItems.length}
-                    </Badge>
-                  )}
-                {/* </ShoppingCartOutlinedIcon> */}
+                <div>
+                  <ShoppingCartOutlinedIcon />
+                  {/* Cart */}
+                  {
+                    courseStore.storeItems.length > 0 && (
+                      <Badge pill bg="warning">
+                        {courseStore.storeItems.length}
+                      </Badge>
+                    )}
+                </div>
+              </Link>
+            </Nav>
+            <Nav className="ml-auto">
+              <Link to="/cart" className='nav-link'>
+                Logout
               </Link>
             </Nav>
           </Container>
