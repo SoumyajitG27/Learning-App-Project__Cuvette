@@ -1,12 +1,14 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from 'react-router-dom'
+import { UserAuth } from '../context/AuthContext'
 import { auth } from '../firebase'
 import pic from "../Images/lock.png"
 import pic2 from "../Images/login.jpg"
 const Login = () => {
+    const { signIn } = useContext(UserAuth)
     const navigate = useNavigate();
     const [values, setValues] = useState({
         email: "",
@@ -22,9 +24,9 @@ const Login = () => {
             return;
         }
         setErrMsg("");
-        signInWithEmailAndPassword(auth, values.email, values.pass)
-            .then(async (res) => {
-                navigate("/");
+        signIn(values.email, values.pass)
+            .then(() => {
+                navigate("/dashboard");
             })
             .catch((err) => {
                 setErrMsg(err.message);

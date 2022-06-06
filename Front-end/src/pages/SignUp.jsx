@@ -1,14 +1,17 @@
 
 import { DriveEta } from '@mui/icons-material'
 import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth'
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from 'react-router-dom'
 import { auth } from '../firebase'
 import pic from "../Images/lock.png"
 import pic2 from "../Images/bg_signup.jpg"
+import { UserAuth } from '../context/AuthContext'
+
 const SignUp = () => {
+    const { createUser } = useContext(UserAuth)
     const navigate = useNavigate();
     const [values, setValues] = useState({
         email: "",
@@ -24,7 +27,7 @@ const SignUp = () => {
             return;
         }
         setErrMsg("");
-        createUserWithEmailAndPassword(auth, values.email, values.pass)
+        createUser(values.email, values.pass)
             .then(async (res) => {
                 const user = res.user;
                 await updateProfile(user,
