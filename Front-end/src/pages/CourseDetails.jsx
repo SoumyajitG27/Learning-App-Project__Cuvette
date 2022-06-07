@@ -51,7 +51,6 @@ const CourseDetails = () => {
         const existItem = courseStore.storeItems.find((x) =>
             x._id === course._id);
         const quantity = existItem ? existItem.quantity + 1 : 1;
-        // const { data } = await axios.get(`/api/courses/${course._id}`);
         if (quantity > 1) {
             window.alert('You have already added this course to your cart');
             return;

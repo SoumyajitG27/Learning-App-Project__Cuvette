@@ -20,23 +20,29 @@ const SignUp = () => {
 
     const [errMsg, setErrMsg] = useState("");
 
-    const handleSubmission = (e) => {
+    const handleSubmission = async (e) => {
         e.preventDefault();
         if (!values.email || !values.pass) {
             setErrMsg("Please fill all fields!");
             return;
         }
         setErrMsg("");
-        createUser(values.email, values.pass)
-            .then(async (res) => {
-                const user = res.user;
-                await updateProfile(user,
-                    { displayName: values.email });
-                navigate("/login");
-            })
-            .catch((err) => {
-                setErrMsg(err.message);
-            });
+        try {
+            await createUser(values.email, values.pass)
+            navigate("/login")
+        } catch (err) {
+            setErrMsg(err.message)
+        }
+        // createUser(values.email, values.pass)
+        //     .then(async (res) => {
+        //         const user = res.user;
+        //         await updateProfile(user,
+        //             { displayName: values.email });
+        //         navigate("/login");
+        //     })
+        //     .catch((err) => {
+        //         setErrMsg(err.message);
+        //     });
     };
 
     return (

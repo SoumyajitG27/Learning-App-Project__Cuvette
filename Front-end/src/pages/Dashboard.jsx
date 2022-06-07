@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { Button, Toast } from 'react-bootstrap';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserAuth } from '../context/AuthContext';
 import { Store } from '../Store'
 
@@ -14,7 +14,7 @@ const Dashboard = () => {
         e.preventDefault()
         try {
             await logOut()
-            navigate('/login')
+            navigate('/')
         }
         catch (err) {
             console.log(err.message);
@@ -26,6 +26,7 @@ const Dashboard = () => {
             {courseStore.storeItems.length > 0 &&
                 (<h1>{courseStore.storeItems.length}</h1>)}
             <Button onClick={handleLogOut} variant="primary">Logout</Button>
+            <Link to='/courses'><Button variant='warning'>Browse Courses</Button></Link>
         </div>
     )
 }

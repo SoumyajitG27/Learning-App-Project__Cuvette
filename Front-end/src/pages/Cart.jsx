@@ -1,14 +1,23 @@
 import React, { useContext } from 'react'
 import { Col, Row, Button, ListGroup, Card } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import MessageBox from '../components/MessageBox';
 import { Store } from '../Store';
 
 const Cart = () => {
+    const navigate = useNavigate()
     const { state, dispatch: ctxDispatch } = useContext(Store);
     const {
         courseStore: { storeItems },
     } = state;
+
+    const removeItemHandler = (item) => {
+        ctxDispatch({ type: 'STORE_REMOVE_ITEM', payload: item });
+    };
+
+    const checkoutHandler = () => {
+        navigate('/signin?redirect=/shipping');
+    };
 
     return (
         <div>
@@ -24,7 +33,7 @@ const Cart = () => {
                     ) : (
                         <ListGroup>
                             {storeItems.map((item) =>
-                            (<ListGroup.Item keu={item._id}>
+                            (<ListGroup.Item key={item._id}>
                                 <Row className='align-items-center'>
                                     <Col md={4}>
                                         <img src="" alt={item.name} className="img-fluid rounded">
@@ -32,15 +41,12 @@ const Cart = () => {
                                         <Link to={`/courses/${item.slug}`}>{item.name}
                                         </Link>
                                     </Col>
-                                    <Col md={3}>
-                                        <Button variant="light">
-                                            <i className="fas fa-minus-circle"></i>
-                                        </Button>{' '}
+                                    {/* <Col md={3}>
                                         <span>{item.quantity}</span>{' '}
-                                    </Col>
-                                    <Col md={3}>Rs {item.price}</Col>
-                                    <Col md={2}>
-                                        <Button variant="light">
+                                    </Col> */}
+                                    <Col md={3} className='text-center'>Rs {item.price}</Col>
+                                    <Col md={2} className='text-center'>
+                                        <Button onClick={() => removeItemHandler(item)} variant="light">
                                             <i className="fas fa-trash"></i>
                                         </Button>
                                     </Col>
@@ -62,7 +68,7 @@ const Cart = () => {
                                 </ListGroup.Item>
                                 <ListGroup.Item>
                                     <div className="d-grid">
-                                        <Button
+                                        <Button onClick={checkoutHandler}
                                             type="button"
                                             variant="primary"
                                             disabled={storeItems.length === 0}>

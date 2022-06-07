@@ -17,20 +17,26 @@ const Login = () => {
 
     const [errMsg, setErrMsg] = useState("");
 
-    const handleSubmission = (e) => {
+    const handleSubmission = async (e) => {
         e.preventDefault();
         if (!values.email || !values.pass) {
             setErrMsg("Please fill all fields!");
             return;
         }
         setErrMsg("");
-        signIn(values.email, values.pass)
-            .then(() => {
-                navigate("/dashboard");
-            })
-            .catch((err) => {
-                setErrMsg(err.message);
-            });
+        try {
+            await signIn(values.email, values.pass)
+            navigate("/dashboard");
+        } catch (err) {
+            setErrMsg(err.message);
+        }
+        // signIn(values.email, values.pass)
+        //     .then(() => {
+        //         navigate("/dashboard");
+        //     })
+        //     .catch((err) => {
+        //         setErrMsg(err.message);
+        //     });
     };
     return (
         <div>

@@ -4,7 +4,9 @@ export const Store = createContext();
 
 const initialState = {
     courseStore: {
-        storeItems: []
+        storeItems: localStorage.getItem('storeItems')
+            ? JSON.parse(localStorage.getItem('storeItems'))
+            : []
     }
 };
 
@@ -19,7 +21,8 @@ function reducer(state, action) {
             //     :
             //     [...state.courseStore.storeItems, newItem];
             // return { ...state, courseStore: { ...state.courseStore, storeItems } };
-
+            localStorage.setItem('storeItems', JSON.stringify([...state.courseStore.storeItems,
+            action.payload]));
             return {
                 ...state,
                 courseStore: {
@@ -27,6 +30,14 @@ function reducer(state, action) {
                     storeItems: [...state.courseStore.storeItems, action.payload],
                 }
             };
+        case 'STORE_REMOVE_ITEM': {
+            const storeItems = state.courseStore.storeItems.filter(
+                (item) => item._id !== action.payload._id
+            );
+            const items = storeItems;
+            localStorage.setItem('storeItems', JSON.stringify(items));
+            return { ...state, courseStore: { ...state.courseStore, storeItems } };
+        }
         default:
             return state;
     }

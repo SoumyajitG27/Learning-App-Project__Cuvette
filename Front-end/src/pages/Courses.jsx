@@ -24,7 +24,7 @@ const reducer = (state, action) => {
 };
 
 const Courses = () => {
-    const [{ loading, error, courses }, dispatch] = useReducer(logger(reducer), {
+    const [{ loading, error, courses }, dispatch] = useReducer(reducer, {
         loading: true,
         error: '',
         courses: []

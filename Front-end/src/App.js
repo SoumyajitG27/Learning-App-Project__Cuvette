@@ -8,21 +8,24 @@ import SignUp from './pages/SignUp'; import Courses from './pages/Courses';
 import CourseDetails from './pages/CourseDetails'
 import Cart from './pages/Cart';
 import ProtectedRoute from './components/ProtectedRoute';
+import { AuthContextProvider } from './context/AuthContext';
 
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/register" element={<SignUp />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/courses" element={<ProtectedRoute><Courses /></ProtectedRoute>} />
-        <Route path='/dashboard' element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-        <Route path='/cart' element={<ProtectedRoute><Cart /></ProtectedRoute>} />
-        <Route path='/courses/:slug' element={<ProtectedRoute><CourseDetails /></ProtectedRoute>} />
-      </Routes>
-    </BrowserRouter>
+    <AuthContextProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/register" element={<SignUp />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/courses" element={<Courses />} />
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/courses/:slug' element={<CourseDetails />} />
+        </Routes>
+      </BrowserRouter>
+    </AuthContextProvider>
   )
 }
 
