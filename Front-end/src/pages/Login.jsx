@@ -1,5 +1,5 @@
 import { signInWithEmailAndPassword } from 'firebase/auth'
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Alert, Button, Col, Container, Form, Image, Row } from 'react-bootstrap'
 import GoogleButton from 'react-google-button'
 import { Link, useNavigate } from 'react-router-dom'
@@ -8,7 +8,7 @@ import { auth } from '../firebase'
 import pic from "../Images/lock.png"
 import pic2 from "../Images/login.jpg"
 const Login = () => {
-    const { signIn } = useContext(UserAuth)
+    const { signIn, user } = useContext(UserAuth)
     const navigate = useNavigate();
     const [values, setValues] = useState({
         email: "",
@@ -26,6 +26,7 @@ const Login = () => {
         setErrMsg("");
         try {
             await signIn(values.email, values.pass)
+            localStorage.setItem('userInfo', JSON.stringify(user));
             navigate("/dashboard");
         } catch (err) {
             setErrMsg(err.message);
@@ -38,6 +39,13 @@ const Login = () => {
         //         setErrMsg(err.message);
         //     });
     };
+
+    useEffect(() => {
+        if (user) {
+            navigate("/dashboard")
+        }
+    }, [navigate, user])
+
     return (
         <div>
             <Container fluid='md' className='mt-5'>

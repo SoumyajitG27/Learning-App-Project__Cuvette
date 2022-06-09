@@ -9,6 +9,7 @@ import { auth } from '../firebase'
 import pic from "../Images/lock.png"
 import pic2 from "../Images/bg_signup.jpg"
 import { UserAuth } from '../context/AuthContext'
+import axios, { Axios } from 'axios'
 
 const SignUp = () => {
     const { createUser } = useContext(UserAuth)
@@ -29,6 +30,12 @@ const SignUp = () => {
         setErrMsg("");
         try {
             await createUser(values.email, values.pass)
+            const email = values.email;
+            const pass = values.pass;
+            await axios.post('/api/users/signup', {
+                email,
+                pass,
+            });
             navigate("/login")
         } catch (err) {
             setErrMsg(err.message)
