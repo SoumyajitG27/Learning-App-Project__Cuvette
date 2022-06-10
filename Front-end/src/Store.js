@@ -4,6 +4,9 @@ export const Store = createContext();
 
 const initialState = {
     courseStore: {
+        paymentMethod: localStorage.getItem('paymentMethod')
+            ? localStorage.getItem('paymentMethod')
+            : '',
         storeItems: localStorage.getItem('storeItems')
             ? JSON.parse(localStorage.getItem('storeItems'))
             : []
@@ -38,6 +41,11 @@ function reducer(state, action) {
             localStorage.setItem('storeItems', JSON.stringify(items));
             return { ...state, courseStore: { ...state.courseStore, storeItems } };
         }
+        case 'SAVE_PAYMENT_METHOD':
+            return {
+                ...state,
+                courseStore: { ...state.courseStore, paymentMethod: action.payload }
+            }
         default:
             return state;
     }

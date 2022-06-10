@@ -40,11 +40,11 @@ const Login = () => {
         //     });
     };
 
-    useEffect(() => {
-        if (user) {
-            navigate("/dashboard")
-        }
-    }, [navigate, user])
+    // useEffect(() => {
+    //     if (user) {
+    //         navigate("/dashboard")
+    //     }
+    // }, [navigate, user])
 
     return (
         <div>

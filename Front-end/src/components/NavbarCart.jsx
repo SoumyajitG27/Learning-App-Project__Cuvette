@@ -17,6 +17,7 @@ const NavbarCart = () => {
     try {
       await logOut()
       localStorage.removeItem('userInfo')
+      localStorage.removeItem('paymentMethod')
       navigate('/')
     }
     catch (err) {

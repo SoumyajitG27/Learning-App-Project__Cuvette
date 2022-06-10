@@ -9,6 +9,7 @@ import CourseDetails from './pages/CourseDetails'
 import Cart from './pages/Cart';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
+import PaymentMethod from './pages/PaymentMethod';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/courses/:slug' element={<CourseDetails />} />
+          <Route path='/payment' element={<PaymentMethod />} />
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
