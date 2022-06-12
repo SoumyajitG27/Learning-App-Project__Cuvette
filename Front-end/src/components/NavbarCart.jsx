@@ -45,7 +45,7 @@ const NavbarCart = () => {
                     )}
                 </div>
               </Link>
-              <NavDropdown title={user.email} id="basic-nav-dropdown">
+              <NavDropdown title={user ? user.email : ""} id="basic-nav-dropdown">
                 <LinkContainer to="/profile">
                   <NavDropdown.Item>User Profile</NavDropdown.Item>
                 </LinkContainer>

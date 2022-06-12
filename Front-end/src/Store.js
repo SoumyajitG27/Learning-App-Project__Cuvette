@@ -41,6 +41,8 @@ function reducer(state, action) {
             localStorage.setItem('storeItems', JSON.stringify(items));
             return { ...state, courseStore: { ...state.courseStore, storeItems } };
         }
+        case 'STORE_CLEAR':
+            return { ...state, courseStore: { ...state.courseStore, storeItems: [] } };
         case 'SAVE_PAYMENT_METHOD':
             return {
                 ...state,

@@ -73,7 +73,7 @@ const CourseDetails = () => {
                                 {
                                     course.sections.map((section) =>
                                     (
-                                        <ListGroup.Item style={{ backgroundColor: '#FFF3B0' }}>
+                                        <ListGroup.Item style={{ backgroundColor: '#FFF3B0' }} key={section}>
                                             <DropdownButton className='.menu-width' id="dropdown-basic-button" title={section} variant='info'>
                                                 <Dropdown.Item href="#/action-1">SubSection 1</Dropdown.Item>
                                                 <Dropdown.Item href="#/action-2">SubSection 2</Dropdown.Item>

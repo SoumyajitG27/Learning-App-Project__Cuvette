@@ -10,6 +10,7 @@ import Cart from './pages/Cart';
 import ProtectedRoute from './components/ProtectedRoute';
 import { AuthContextProvider } from './context/AuthContext';
 import PaymentMethod from './pages/PaymentMethod';
+import OrderScreen from './pages/OrderScreen';
 
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/courses/:slug' element={<CourseDetails />} />
           <Route path='/payment' element={<PaymentMethod />} />
+          <Route path="/order/:id" element={<OrderScreen />}></Route>
         </Routes>
       </BrowserRouter>
     </AuthContextProvider>
